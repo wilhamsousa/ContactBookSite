@@ -1,1 +1,66 @@
-<app-menu></app-menu>Home
+<app-menu></app-menu>
+
+<div class="container-fluid pt-3">    
+    <div class="row">
+        <!-- left card principal -->
+        <div class="col-12 col-lg-9">
+            <div class="row">
+                <!-- left spinner card -->
+                <div class="col-6">
+                    <div class="card-info">
+                        <div class="row">
+                            <div class="col-8">
+                                <p class="texto-card">Usuários cadastrados</p>
+                                <p class="numero-card">{{totalUsuarios}}</p>
+                                <p class="destaque-card">+{{usuariosAdicionadosMes}} Adicionados no último mês</p>
+                            </div>
+                            <div class="col-4">
+                                <mat-progress-spinner [mode]="mode" [value]="totalUsuariosPercent"></mat-progress-spinner>
+                                <p class="info-spinner">{{totalUsuarios}}/{{maxUsuarios}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- right spinner card -->
+                <div class="col-6">
+                    <div class="card-info">
+                        <div class="row">
+                            <div class="col-8">
+                                <p class="texto-card">Contatos cadastrados</p>
+                                <p class="numero-card">{{totalContatos}}</p>
+                                <p class="destaque-card">+{{contatosAdicionadosMes}} Adicionados no último mês</p>
+                            </div>
+                            <div class="col-4">
+                                <mat-progress-spinner [mode]="mode" [value]="totalContatosPercent"></mat-progress-spinner>
+                                <p class="info-spinner">{{totalContatos}}/{{maxContatos}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- right card user management -->
+        <div class="col-2 col-lg-3">
+            <div class="card-info">
+                <div class="container-perfil">
+                    <img src="../../../assets/perfil.png" class="img-perfil">
+                    <h4>Seja bem vindo</h4>
+                    <h5>{{userName}}</h5>
+                    <li>
+                        <mat-icon>location_on</mat-icon>
+                        PR-Curitiba
+                    </li>
+                </div>
+
+                <hr class="hr">
+                <h4>Gerenciar perfil</h4>
+                <hr class="hr">
+
+                <li><mat-icon>person</mat-icon>Editar usuário</li>
+                <li><mat-icon>person</mat-icon>Excluir usuário</li>
+            </div>
+        </div>
+    </div>    
+</div>
