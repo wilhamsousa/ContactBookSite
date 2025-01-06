@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
@@ -16,5 +17,16 @@ export class HomeComponent {
   totalUsuariosPercent = this.totalUsuarios / this.maxUsuarios * 100;
   totalContatos = 80;
   totalContatosPercent = this.totalContatos / this.maxContatos * 100;
-  userName = "Wilham";
+  userName: string | null;
+
+  constructor(private route: Router){
+
+  }
+
+  ngOnInit(){
+    this.userName = sessionStorage.getItem("userName");
+
+    if (this.userName == "")
+      this.route.navigate(["login"]);
+  }
 }

@@ -3,8 +3,11 @@
 <div class="area-form">
     <form>
         <h1 class="titulo">Agenda de contatos</h1>
-        <h2 class="subtitulo">Login do usuário</h2>
-        <input type="text"placeholder="Digite seu nome" class="input-form" [(ngModel)] = "userName" [ngModelOptions]="{standalone:true}">
+        <h2 class="subtitulo">Informe seus dados</h2>
+        <input type="text"placeholder="Digite seu email" class="input-form" [(ngModel)] = "email" [ngModelOptions]="{standalone:true}">
+        <input type="password"placeholder="Digite sua senha" class="input-form" [(ngModel)] = "password" [ngModelOptions]="{standalone:true}">
+        <span class="error-message">{{errorMessage}}</span>
+        
         <app-button textButton="Acessar" size="100" (click)="login()"></app-button>
     </form>
 
