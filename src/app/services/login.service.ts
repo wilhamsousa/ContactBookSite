@@ -40,8 +40,6 @@ export class LoginService {
       "password": password
     };
 
-    console.log(body)
-
     let result = this.http.post<any>(this.urlLogin, body, {headers}).pipe(
       catchError(this.handleError)
     );

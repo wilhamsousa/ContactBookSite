@@ -1,0 +1,102 @@
+<div class="container-fluid p-3">
+    <mat-icon class="float-end hover" (click)="closeModal()">close</mat-icon>
+
+    <h1 class="titulo">Formulário do contato</h1>
+    <h2 class="subtitulo">Informe os dados do contato</h2>
+
+    <form class="row" [formGroup]="formContact">
+        <div class="col-12 md-6 mb-2" >
+            <mat-form-field class="example-full-width w-100">
+                <mat-label>Nome</mat-label>
+                <input type="text" matInput formControlName="name" placeholder="Digite o nome">                
+                @if (formContact.controls['name'].invalid) {
+                  <mat-error>Digite um nome válido</mat-error>
+                }
+            </mat-form-field>
+        </div>
+        <div class="col-12 md-6 mb-2" >
+            <mat-form-field class="example-full-width w-100">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="email" placeholder="Digite o email">                
+                @if (formContact.controls['email'].invalid) {
+                  <mat-error>Digite um email válido</mat-error>
+                }
+            </mat-form-field>           
+        </div>
+        <div class="col-12 md-6 mb-2" >
+            <mat-form-field class="example-full-width w-100">
+                <mat-label>CPF</mat-label>
+                <input type="text" matInput formControlName="cpf" placeholder="Digite o cpf">                
+                @if (formContact.controls['cpf'].invalid) {
+                  <mat-error>Digite um cpf válido</mat-error>
+                }
+            </mat-form-field>           
+        </div>
+        <div class="col-12 md-6 mb-2" >
+            <mat-form-field class="example-full-width w-100">
+                <mat-label>Telefone</mat-label>
+                <input type="text" matInput formControlName="phoneNumber" placeholder="Digite o telefone">                
+                @if (formContact.controls['phoneNumber'].invalid) {
+                  <mat-error>Digite um telefone válido</mat-error>
+                }
+            </mat-form-field>           
+        </div>
+        <div class="col-12 md-6 mb-2" >
+            <mat-form-field class="example-full-width w-100">
+                <mat-label>Cep</mat-label>
+                <input type="text" matInput formControlName="cep" placeholder="Digite o cep">                
+                @if (formContact.controls['cep'].invalid) {
+                  <mat-error>Digite um cep válido</mat-error>
+                }
+            </mat-form-field>           
+        </div>
+        <div class="col-12 md-6 mb-2" >
+            <mat-form-field class="example-full-width w-100">
+                <mat-label>Endereço</mat-label>
+                <input type="text" matInput formControlName="address" placeholder="Digite o endereço">                
+                @if (formContact.controls['address'].invalid) {
+                  <mat-error>Digite um endereço válido</mat-error>
+                }
+            </mat-form-field>           
+        </div>
+        <div class="col-12 md-6 mb-2" >
+            <mat-form-field class="example-full-width w-100">
+                <mat-label>Complemento</mat-label>
+                <input type="text" matInput formControlName="complement" placeholder="Digite o complemento">                
+                @if (formContact.controls['complement'].invalid) {
+                  <mat-error>Digite um complemento válido</mat-error>
+                }
+            </mat-form-field>           
+        </div>
+        <div class="col-12 md-6 mb-2" >
+            <mat-form-field class="example-full-width w-100">
+                <mat-label>Cidade</mat-label>
+                <input type="text" matInput formControlName="city" placeholder="Digite a cidade">                
+                @if (formContact.controls['city'].invalid) {
+                  <mat-error>Digite uma cidade válida</mat-error>
+                }
+            </mat-form-field>           
+        </div>
+        <div class="col-12 md-6 mb-2" >
+            <mat-form-field class="example-full-width w-100">
+                <mat-label>UF</mat-label>
+                <input type="text" matInput formControlName="uf" placeholder="Digite o estado">                
+                @if (formContact.controls['uf'].invalid) {
+                  <mat-error>Digite um estado válido</mat-error>
+                }
+            </mat-form-field>           
+        </div>
+        <div class="col-12 md-6 mb-2" >
+            <mat-form-field class="example-full-width w-100">
+                <mat-label>Posição geográfica</mat-label>
+                <input type="text" matInput formControlName="geographicalPosition" placeholder="Digite a posição geográfica">                
+                @if (formContact.controls['geographicalPosition'].invalid) {
+                  <mat-error>Digite uma posição geográfica válida</mat-error>
+                }
+            </mat-form-field>           
+        </div>
+        <div class="col-12">
+            <button class="botao-primario float-end" [disabled]="!formContact.valid">Salvar</button>
+        </div>
+    </form>
+</div>

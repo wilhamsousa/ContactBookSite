@@ -25,9 +25,7 @@ export class LoginComponent {
     console.log(this.password);
     this.loginService.login(this.email, this.password).subscribe(
       data => {
-        this.loginResponse = data;
-        console.log("getAllContacts ", data);
-
+          this.loginResponse = data;
           sessionStorage.setItem("email", this.email);
           sessionStorage.setItem("userName", data.userName);
           sessionStorage.setItem("token", data.accessToken);
