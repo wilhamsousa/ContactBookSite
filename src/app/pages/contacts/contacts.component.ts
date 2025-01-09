@@ -16,7 +16,7 @@ export class ContactsComponent {
   contactResponse: Contact[];
   errorMessage: string;
   
-  displayedColumns: string[] = ['name', 'email', 'cpf', 'phoneNumber', 'cep', 'address', 'city', 'uf', 'action'];
+  displayedColumns: string[] = ['name', 'email', 'cpf', 'phoneNumber', 'action'];
   dataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

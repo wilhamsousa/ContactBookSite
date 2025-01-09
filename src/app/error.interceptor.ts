@@ -12,16 +12,16 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
         let errorMessage = '';
-        if (error.error instanceof ErrorEvent) {
+        console.log(error.error)
+        if (error.error.detail) {
           // Erro do lado do cliente
-          errorMessage = `Erro: ${error.error.message}`;
+          errorMessage = `Erro: ${error.error.detail}`;
+          this.snackBar.open(errorMessage, 'Fechar', { duration: 5000, });
         } else {
           // Erro do lado do servidor
           errorMessage = `Código do erro: ${error.status}\nMensagem: ${error.message}`;
+          this.snackBar.open("Ocorreu um erro de comunicação com o servidor.", 'Fechar', { duration: 5000, });
         }
-
-        this.snackBar.open("Ocorreu um erro de comunicação com o servidor.", 'Fechar', { duration: 5000, });
-        console.error(errorMessage);
         return throwError(() => error);
       })
     );

@@ -40,20 +40,8 @@ export class LoginService {
       "password": password
     };
 
-    let result = this.http.post<any>(this.urlLogin, body, {headers}).pipe(
-      catchError(this.handleError)
-    );
+    let result = this.http.post<any>(this.urlLogin, body, {headers});
 
     return result;
-  }
-
-  private handleError(error: HttpErrorResponse): Observable<never> {
-    let errorMessage = 'Ocorreu um erro desconhecido';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = `Erro: ${error.error.message}`;
-    } else {
-      errorMessage = `Código do erro: ${error.status} Mensagem: ${error.message}`;
-    }
-    return throwError(() => error);
   }
 }
