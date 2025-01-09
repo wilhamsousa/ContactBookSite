@@ -23,69 +23,69 @@
 
                 <ng-container matColumnDef="id">
                     <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                    <td class="td-table" mat-cell *matCellDef="let user"> {{user.id}} </td>
+                    <td class="td-table" mat-cell *matCellDef="let contact"> {{contact.id}} </td>
                 </ng-container>
             
                 <ng-container matColumnDef="name">
                     <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
-                    <td class="td-table" mat-cell *matCellDef="let user"> {{user.name}} </td>
+                    <td class="td-table" mat-cell *matCellDef="let contact"> {{contact.name}} </td>
                 </ng-container>
             
                 <ng-container matColumnDef="email">
                     <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-                    <td class="td-table" mat-cell *matCellDef="let user"> {{user.email}} </td>
+                    <td class="td-table" mat-cell *matCellDef="let contact"> {{contact.email}} </td>
                 </ng-container>
             
                 <ng-container matColumnDef="cpf">
                     <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> CPF </th>
-                    <td class="td-table" mat-cell *matCellDef="let user"> {{user.cpf}} </td>
+                    <td class="td-table" mat-cell *matCellDef="let contact"> {{contact.cpf}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="phoneNumber">
                     <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> Telefone </th>
-                    <td class="td-table" mat-cell *matCellDef="let user"> {{user.phoneNumber}} </td>
+                    <td class="td-table" mat-cell *matCellDef="let contact"> {{contact.phoneNumber}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="cep">
                     <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> Cep </th>
-                    <td class="td-table" mat-cell *matCellDef="let user"> {{user.cep}} </td>
+                    <td class="td-table" mat-cell *matCellDef="let contact"> {{contact.cep}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="address">
                     <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> Endereço </th>
-                    <td class="td-table" mat-cell *matCellDef="let user"> {{user.address}} </td>
+                    <td class="td-table" mat-cell *matCellDef="let contact"> {{contact.address}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="complement">
                     <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> Complemento </th>
-                    <td class="td-table" mat-cell *matCellDef="let user"> {{user.complement}} </td>
+                    <td class="td-table" mat-cell *matCellDef="let contact"> {{contact.complement}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="city">
                     <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> Cidade </th>
-                    <td class="td-table" mat-cell *matCellDef="let user"> {{user.city}} </td>
+                    <td class="td-table" mat-cell *matCellDef="let contact"> {{contact.city}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="uf">
                     <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> UF </th>
-                    <td mat-cell *matCellDef="let user"> {{user.uf}} </td>
+                    <td mat-cell *matCellDef="let contact"> {{contact.uf}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="geographicalPosition">
                     <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header> Position </th>
-                    <td mat-cell *matCellDef="let user"> {{user.geographicalPosition}} </td>
+                    <td mat-cell *matCellDef="let contact"> {{contact.geographicalPosition}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="action">
                     <th class="th-table" mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                    <td class="td-table" mat-cell *matCellDef="let user">
-                        <mat-icon class="icone-tabela">edit</mat-icon>
-                        <mat-icon class="icone-tabela">delete</mat-icon>
+                    <td class="td-table" mat-cell *matCellDef="let contact">
+                        <mat-icon class="icone-tabela" (click)="openModalEditContact(contact)">edit</mat-icon>
+                        <mat-icon class="icone-tabela" (click)="deleteContact(contact.id)">delete</mat-icon>
                     </td>
                 </ng-container>
             
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
+                <tr mat-row *matRowDef="let contact; columns: displayedColumns;"></tr>
             
                 <tr class="mat-row" *matNoDataRow>
                   <td class="mat-cell no-data" colspan="4">Nenhum registro encontrado "{{input.value}}"</td>

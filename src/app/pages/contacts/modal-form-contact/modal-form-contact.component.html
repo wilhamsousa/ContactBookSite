@@ -5,6 +5,11 @@
     <h2 class="subtitulo">Informe os dados do contato</h2>
 
     <form class="row" [formGroup]="formContact">
+        <div class="col-12 md-6 mb-2 hidden-input" >
+            <mat-form-field class="example-full-width w-100">
+                <input type="text" matInput formControlName="id" placeholder="Id">                
+            </mat-form-field>
+        </div>
         <div class="col-12 md-6 mb-2" >
             <mat-form-field class="example-full-width w-100">
                 <mat-label>Nome</mat-label>
@@ -96,7 +101,7 @@
             </mat-form-field>           
         </div>
         <div class="col-12">
-            <button class="botao-primario float-end" [disabled]="!formContact.valid">Salvar</button>
+            <button class="botao-primario float-end" [disabled]="!formContact.valid" (click)="saveContact()">Salvar</button>
         </div>
     </form>
 </div>

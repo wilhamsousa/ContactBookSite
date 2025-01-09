@@ -9,8 +9,7 @@ import { Contact } from '../interfaces/contact';
 export class ContactService {
   private baseUrl = 'http://localhost:5114';
   private urlGetAll = this.baseUrl + "/api/Contact/getall";
-  private urlCreate = this.baseUrl + "/api/Contact/create";
-  private urldelete = this.baseUrl + "/api/Contact";
+  private urlPersist = this.baseUrl + "/api/Contact";
 
   constructor(private http: HttpClient) { }
   
@@ -26,27 +25,27 @@ export class ContactService {
 
   getAllContacts(): Observable<any[]>{
     
-    let headers = this.getHeaders();
-    let result = this.http.get<any[]>(this.urlGetAll, {headers});
+    const headers = this.getHeaders();
+    const result = this.http.get<any[]>(this.urlGetAll, {headers});
     console.log(result);
     return result;
   }
 
-  addContact(contact: Contact): Observable<any[]>{    
-    let result = this.http.post<any[]>(this.urlCreate, contact);
-    console.log(result);
+  addContact(contact: Contact): Observable<any[]>{   
+    const headers = this.getHeaders(); 
+    const result = this.http.post<any[]>(this.urlPersist, contact, {headers});
     return result;
   }
 
   updateContact(contact: Contact): Observable<any[]>{
-    let result = this.http.post<any[]>(this.urlCreate, contact);
-    console.log(result);
+    const headers = this.getHeaders(); 
+    let result = this.http.patch<any[]>(`${this.urlPersist}/${contact.id}`, contact, {headers});
     return result;
   }
 
   deleteContact(id: string): Observable<any[]>{
-    let result = this.http.delete<any[]>(this.urlCreate + "/" + id);
-    console.log(result);
+    const headers = this.getHeaders(); 
+    let result = this.http.delete<any[]>(`${this.urlPersist}/${id}`, {headers});
     return result;
   }
 }

@@ -1,11 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { ContactService } from '../../services/contact.service';
 import { Contact } from '../../interfaces/contact';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { ContactService } from '../../services/contact.service';
 import { ModalFormContactComponent } from './modal-form-contact/modal-form-contact.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-contacts',
@@ -23,23 +24,22 @@ export class ContactsComponent {
   @ViewChild(MatSort) sort: MatSort;
   constructor(
     private contactService: ContactService,
-    public dialog: MatDialog){
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar){
     this.definirDataSource();
   }
 
   getAllContacts(){
-    this.contactService.getAllContacts().subscribe(
-      data => {
+    this.contactService.getAllContacts().subscribe({
+      next: (data) => {
         this.contactResponse = data;
         this.definirDataSource();
         this.definirPaginacao();
         this.definirFiltro();
-        console.log(this.contactResponse)
       },
-      ex => {
-        this.errorMessage = ex.error.detail;
-      }
-    );
+      complete: () => {},
+      error: (err: any) => this.errorMessage = err.error.detail
+    });
   }
 
   definirFiltro() {
@@ -84,5 +84,26 @@ export class ContactsComponent {
         height: "700px"
       }).afterClosed().subscribe(() => this.getAllContacts() 
     );
+  }
+
+  openModalEditContact(contact: Contact){
+    this.dialog.open(ModalFormContactComponent,
+      {
+        width: "700px",
+        height: "700px",
+        data: contact
+      }).afterClosed().subscribe(() => this.getAllContacts() 
+    );
+  }
+
+  deleteContact(id: string){
+    this.contactService.deleteContact(id).subscribe({
+      next: (data) => {
+        this.snackBar.open("Contato excluído com sucesso.", 'Fechar', { duration: 5000, });
+        this.getAllContacts();
+      },
+      complete: () => {},
+      error: (err: any) => {}
+    });
   }
 }
