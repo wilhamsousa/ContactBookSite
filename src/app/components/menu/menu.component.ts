@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class MenuComponent {
   logout(){
-    sessionStorage.setItem("userName", "");
+    sessionStorage.setItem("token", "");
   }
 }

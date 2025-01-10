@@ -1,0 +1,42 @@
+<div class="area-novousuario-background d-none d-md-block" ></div>
+
+<div class="area-form">
+    <div class="container-fluid p-5">
+        <mat-icon class="float-end hover" (click)="closeForm()">close</mat-icon>
+        <h1 class="titulo">Cadastro de novo usuário</h1>
+        <h2 class="subtitulo">Informe seus dados</h2>
+        
+        <form class="row input-form" [formGroup]="formUser">            
+            <div class="col-12 md-6 mb-2" >
+                <mat-form-field class="example-full-width w-100">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput formControlName="email" placeholder="Digite o email">                
+                    @if (formUser.controls['email'].invalid) {
+                        <mat-error>Digite um email válido</mat-error>
+                    }
+                </mat-form-field>           
+            </div>
+            <div class="col-12 md-6 mb-2" >
+                <mat-form-field class="example-full-width w-100">
+                    <mat-label>Nome</mat-label>
+                    <input type="text" matInput formControlName="userName" placeholder="Digite o nome">                
+                    @if (formUser.controls['userName'].invalid) {
+                        <mat-error>Digite um nome válido</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            <div class="col-12 md-6 mb-2" >
+                <mat-form-field class="example-full-width w-100">
+                    <mat-label>Senha</mat-label>
+                    <input type="password" matInput formControlName="password" placeholder="Digite uma nova senha">                
+                    @if (formUser.controls['password'].invalid) {
+                        <mat-error>Senha a partir de 8 dígitos, com maiúscula, minúscula e caracter especial</mat-error>
+                    }
+                </mat-form-field>           
+            </div>        
+            <div class="col-12">
+                <app-button textButton="Cadastrar" size="100" [isDisabled]="!formUser.valid"  (click)="saveUser()"></app-button>
+            </div>
+        </form>
+    </div>
+</div>

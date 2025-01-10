@@ -82,3 +82,23 @@ li{
         border: none;
     }
 }
+
+.menu-perfil{
+    width: 100%;
+    li{
+        color: #0a0a0a;
+        border: none;
+    }
+}
+
+.icone-tabela{
+    color: #767676;
+    margin-right: 10px;
+    transform: rotate(0deg);
+    transition: 0.3 linear all;
+    &:hover{
+        cursor: pointer;
+        color: var(--primary-color);
+        transform: rotate(359deg);
+    }
+}

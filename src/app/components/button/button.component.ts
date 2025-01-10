@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 export class ButtonComponent {
   @Input() textButton: string;
   @Input() size: string = "auto";
+  @Input() isDisabled: boolean = false;
 
   constructor(){
     console.log("constructor");

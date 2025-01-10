@@ -14,6 +14,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ContactsComponent } from './pages/contacts/contacts.component';
 import { ModalFormContactComponent } from './pages/contacts/modal-form-contact/modal-form-contact.component';
+import { UserComponent } from './pages/user/user.component';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -34,7 +35,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HomeComponent,
     MenuComponent,
     ContactsComponent,
-    ModalFormContactComponent
+    ModalFormContactComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

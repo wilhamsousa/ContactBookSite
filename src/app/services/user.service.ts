@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http'; 
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { User } from '../interfaces/user';
 
 @Injectable({
@@ -9,7 +8,7 @@ import { User } from '../interfaces/user';
 })
 export class UserService {
   private baseUrl = 'http://localhost:5114';
-  private urlLogin = this.baseUrl + "/api/Login/login";
+  private urlPersist = this.baseUrl + "/api/User";
 
   constructor(private http: HttpClient) { }
   
@@ -23,4 +22,21 @@ export class UserService {
     return headers;
   }
 
+  addUser(user: User): Observable<any[]>{   
+    const headers = this.getHeaders(); 
+    const result = this.http.post<any[]>(this.urlPersist, user, {headers});
+    return result;
+  }
+
+  updateUser(user: User): Observable<any[]>{
+    const headers = this.getHeaders(); 
+    let result = this.http.patch<any[]>(`${this.urlPersist}/${user.id}`, user, {headers});
+    return result;
+  }
+
+  deleteUser(): Observable<any[]>{
+    const headers = this.getHeaders(); 
+    let result = this.http.delete<any[]>(this.urlPersist, {headers});
+    return result;
+  }
 }

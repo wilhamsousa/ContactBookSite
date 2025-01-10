@@ -1,15 +1,39 @@
 <div class="area-login-background d-none d-md-block" ></div>
 
 <div class="area-form">
-    <form>
+    <form class="row" [formGroup]="formLogin">
         <h1 class="titulo">Agenda de contatos</h1>
         <h2 class="subtitulo">Informe seus dados</h2>
-        <input type="text"placeholder="Digite seu email" class="input-form" [(ngModel)] = "email" [ngModelOptions]="{standalone:true}">
-        <input type="password"placeholder="Digite sua senha" class="input-form" [(ngModel)] = "password" [ngModelOptions]="{standalone:true}">
-        <span class="error-message">{{errorMessage}}</span>
         
-        <app-button textButton="Acessar" size="100" (click)="login()"></app-button>
-    </form>
+        <div class="col-12 md-6 mb-2" >
+            <mat-form-field class="example-full-width w-100">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="email" placeholder="Digite seu email">                
+                @if (formLogin.controls['email'].invalid) {
+                    <mat-error>Digite um email válido</mat-error>
+                }
+            </mat-form-field>           
+        </div>
+        <div class="col-12 md-6 mb-2" >
+            <mat-form-field class="example-full-width w-100">
+                <mat-label>Senha</mat-label>
+                <input type="password" matInput formControlName="password" placeholder="Digite sua senha" (input)="onInputChange()">                
+                @if (formLogin.controls['password'].invalid) {
+                    <mat-error>Senha a partir de 8 dígitos, com maiúscula, minúscula e caracter especial</mat-error>
+                }
+            </mat-form-field>           
+        </div>        
+
+        <div class = "link-novo-usuario">
+            <a href="#" routerLink="/user" class = "link-novo-usuario">Novo usuário</a>
+        </div>
+        <span class="error-message">{{errorMessage}}</span>
+
+        <div class="col-12">
+            <!-- <button class="botao-primario float-end" [disabled]="!formLogin.valid" (click)="saveUser()">Salvar</button> -->
+            <app-button textButton="Acessar" size="100" [isDisabled]="!formLogin.valid"  (click)="login()"></app-button>
+        </div>
+    </form>    
 
     <p class="footer">© Desenvolvido por Wilham</p>
 </div>

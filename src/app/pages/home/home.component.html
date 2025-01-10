@@ -58,8 +58,10 @@
                 <h4>Gerenciar perfil</h4>
                 <hr class="hr">
 
-                <li><mat-icon>person</mat-icon>Editar usuário</li>
-                <li><mat-icon>person</mat-icon>Excluir usuário</li>
+                <div class="menu-perfil">
+                    <!-- <li><mat-icon>person</mat-icon>Editar usuário</li> -->
+                    <li><mat-icon (click)="deleteUser()" class="icone-tabela">delete</mat-icon>Excluir usuário</li>
+                </div>
             </div>
         </div>
     </div>    
