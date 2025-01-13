@@ -3,6 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ContactService } from '../../../services/contact.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ExternalService } from '../../../services/external.service';
+import { LoadingService } from '../../../services/loading.service';
+import { ViaCepResponse } from '../../../interfaces/viaCep';
+import { LoadingSpinnerComponent } from '../../../components/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-modal-form-contact',
@@ -11,11 +15,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ModalFormContactComponent {
   formContact: FormGroup;
+  loadingDialogRef: any;
 
   constructor(
     public dialogRef: MatDialogRef<ModalFormContactComponent>,
     private formBuilder: FormBuilder,
     private contactService: ContactService,
+    private externalService: ExternalService,
+    private loadingService: LoadingService,
     private snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any){ 
   }
@@ -81,24 +88,88 @@ export class ModalFormContactComponent {
   }
 
   addContact(contactDTO: any){
+    this.loadingDialogRef = this.loadingService.open();
     this.contactService.addContact(contactDTO).subscribe({
       next: (data) => {
         this.snackBar.open("Contato adicionado com sucesso.", 'Fechar', { duration: 5000, });
         this.closeModal();
       },
-      complete: () => {},
-      error: (err: any) => {}
+      complete: () => {
+        this.loadingService.close(this.loadingDialogRef);
+      },
+      error: (err: any) => {
+        this.loadingService.close(this.loadingDialogRef);
+      }
     });
   }
 
   editContact(contactDTO: any){
+    this.loadingDialogRef = this.loadingService.open();
     this.contactService.updateContact(contactDTO).subscribe({
       next: (data) => {
         this.snackBar.open("Contato atualizado com sucesso.", 'Fechar', { duration: 5000, });
         this.closeModal();
       },
-      complete: () => {},
-      error: (err: any) => {}
+      complete: () => {
+        this.loadingService.close(this.loadingDialogRef);
+      },
+      error: (err: any) => {
+        this.loadingService.close(this.loadingDialogRef);
+      }
+    });
+  }
+  
+  onBlurCep(event: any){
+    const cep = event.target.value;
+    this.updateAddressFromViaCep(cep);
+  }
+
+  onInputChangeCep(event: any): void { 
+    this.formContact.patchValue(
+      {
+        address: "",
+        city: "",
+        uf: ""
+      });
+  }
+
+  updateAddressFromViaCep(cep: string){
+    if (!cep) 
+      return;
+
+    if (!this.formContact.get("cep")?.valid || false)
+      return;
+
+    if (this.formContact.get('address')?.value ||
+        this.formContact.get('city')?.value ||
+        this.formContact.get('uf')?.value)
+      return;
+
+    this.loadingDialogRef = this.loadingService.open();
+    this.externalService.getCep(cep).subscribe({
+      next: (data) => {
+        if (!this.formContact.get('address')?.value) {
+          this.formContact.patchValue(
+            {
+              address: data.logradouro,
+            });
+        }
+
+        if (!this.formContact.get('city')?.value || 
+            !this.formContact.get('uf')?.value) {
+          this.formContact.patchValue(
+            {
+              city: data.localidade,
+              uf: data.uf
+            });
+        }
+      },
+      complete: () => {
+        this.loadingService.close(this.loadingDialogRef);
+      },
+      error: (err: any) => {
+        this.loadingService.close(this.loadingDialogRef);
+      }
     });
   }
 }

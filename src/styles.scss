@@ -14,3 +14,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .c-gray{color: var(--gray-color);}
 
 .hover:hover{cursor: pointer;}
+
+.transparent-modal .mat-dialog-container { 
+    background-color: #ffffff00;
+    background: transparent !important; 
+    box-shadow: none !important; 
+}

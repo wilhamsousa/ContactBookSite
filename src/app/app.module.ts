@@ -26,6 +26,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MenuComponent,
     ContactsComponent,
     ModalFormContactComponent,
-    UserComponent
+    UserComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,

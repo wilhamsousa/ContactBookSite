@@ -49,7 +49,7 @@
         <div class="col-12 md-6 mb-2" >
             <mat-form-field class="example-full-width w-100">
                 <mat-label>Cep</mat-label>
-                <input type="text" matInput formControlName="cep" placeholder="Digite o cep">                
+                <input type="text" matInput formControlName="cep" placeholder="Digite o cep" (blur)="onBlurCep($event)" (change)="onInputChangeCep($event)">                
                 @if (formContact.controls['cep'].invalid) {
                   <mat-error>Digite um cep válido</mat-error>
                 }

@@ -17,10 +17,8 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
         let errorMessage = '';
-        console.log(error.error)
         
         if (error instanceof HttpErrorResponse){
-          console.log(error)
           if (error.status == 401) {
             this.snackBar.open("Login expirou.", 'Fechar', { duration: 5000, });
             this.logOut()

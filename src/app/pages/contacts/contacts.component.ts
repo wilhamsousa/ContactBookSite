@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ContactService } from '../../services/contact.service';
 import { ModalFormContactComponent } from './modal-form-contact/modal-form-contact.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-contacts',
@@ -14,6 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './contacts.component.scss'
 })
 export class ContactsComponent {
+  loadingDialogRef: any;
   contactResponse: Contact[];
   errorMessage: string;
   
@@ -25,11 +27,13 @@ export class ContactsComponent {
   constructor(
     private contactService: ContactService,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar){
+    private snackBar: MatSnackBar,
+    private loadingService: LoadingService){
     this.definirDataSource();
   }
 
   getAllContacts(){
+    this.loadingDialogRef = this.loadingService.open();
     this.contactService.getAllContacts().subscribe({
       next: (data) => {
         this.contactResponse = data;
@@ -37,14 +41,18 @@ export class ContactsComponent {
         this.definirPaginacao();
         this.definirFiltro();
       },
-      complete: () => {},
-      error: (err: any) => this.errorMessage = err.error.detail
+      complete: () => {
+        this.loadingService.close(this.loadingDialogRef);
+      },
+      error: (err: any) => {
+        error: (err: any) => this.errorMessage = err.error.detail
+        this.loadingService.close(this.loadingDialogRef);
+      }
     });
   }
 
   definirFiltro() {
     this.dataSource.filterPredicate = (data: Contact, filter: string) => {
-      console.log(filter);
       return data.cpf.includes(filter) || data.name.toLowerCase().includes(filter.toLocaleLowerCase());
      };
   }
@@ -97,13 +105,18 @@ export class ContactsComponent {
   }
 
   deleteContact(id: string){
+    this.loadingDialogRef = this.loadingService.open();
     this.contactService.deleteContact(id).subscribe({
       next: (data) => {
         this.snackBar.open("Contato excluído com sucesso.", 'Fechar', { duration: 5000, });
         this.getAllContacts();
       },
-      complete: () => {},
-      error: (err: any) => {}
+      complete: () => {
+        this.loadingService.close(this.loadingDialogRef);
+      },
+      error: (err: any) => {
+        this.loadingService.close(this.loadingDialogRef);
+      }
     });
   }
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { LoginResponse } from '../../interfaces/login'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  loadingDialogRef: any;
   formLogin: FormGroup;
   loginResponse: LoginResponse;
   errorMessage: string;
@@ -17,8 +19,8 @@ export class LoginComponent {
   constructor(
     private route: Router,
     private loginService: LoginService,
-    private formBuilder: FormBuilder){
-    console.log("constructor");
+    private formBuilder: FormBuilder,
+    private loadingService: LoadingService){
   }
 
   ngOnInit(){
@@ -27,7 +29,6 @@ export class LoginComponent {
 
   onInputChange(){
     this.errorMessage = "";
-    console.log("onchanges")
   }
 
   buildForm(){
@@ -39,6 +40,7 @@ export class LoginComponent {
 
   login(){
     const loginDTO = this.formLogin.getRawValue();
+    this.loadingDialogRef = this.loadingService.open();
     this.loginService.login(loginDTO.email, loginDTO.password).subscribe({
       next: (data) => {
           this.loginResponse = data;
@@ -47,9 +49,12 @@ export class LoginComponent {
           sessionStorage.setItem("token", data.accessToken);
           this.route.navigate(["home"]);
       },
-      complete: () => {},
+      complete: () => {
+        this.loadingService.close(this.loadingDialogRef);
+      },
       error: (err: any) => {
         this.errorMessage = err.error.detail;
+        this.loadingService.close(this.loadingDialogRef);
       }
     });    
   }

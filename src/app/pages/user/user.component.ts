@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../interfaces/user';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-user',
@@ -11,13 +12,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './user.component.scss'
 })
 export class UserComponent {
+  loadingDialogRef: any;
   formUser: FormGroup;
 
   constructor(
     private route: Router,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private snackBar: MatSnackBar){
+    private snackBar: MatSnackBar,
+    private loadingService: LoadingService){
   }
 
   ngOnInit(){
@@ -42,13 +45,18 @@ export class UserComponent {
   }
 
   addUser(user: User){
+    this.loadingDialogRef = this.loadingService.open();
     this.userService.addUser(user).subscribe({
       next: (data) => {
         this.snackBar.open("Usuário adicionado com sucesso.", 'Fechar', { duration: 5000, });
         this.route.navigate(["login"]);
       },
-      complete: () => {},
-      error: (err: any) => {}
+      complete: () => {
+        this.loadingService.close(this.loadingDialogRef);
+      },
+      error: (err: any) => {
+        this.loadingService.close(this.loadingDialogRef);
+      }
     });
   }
 }

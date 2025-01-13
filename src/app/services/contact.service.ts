@@ -27,7 +27,6 @@ export class ContactService {
     
     const headers = this.getHeaders();
     const result = this.http.get<any[]>(this.urlGetAll, {headers});
-    console.log(result);
     return result;
   }
 
