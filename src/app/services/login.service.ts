@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { LoginResponse } from '../interfaces/login';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private baseUrl = 'http://localhost:5114';
+  private baseUrl = environment.baseUrl;
   private urlLogin = this.baseUrl + "/api/Login/login";
 
   constructor(private http: HttpClient) { }

@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'; 
 import { Observable } from 'rxjs';
 import { Contact } from '../interfaces/contact';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactService {
-  private baseUrl = 'http://localhost:5114';
+  private baseUrl = environment.baseUrl;
   private urlGetAll = this.baseUrl + "/api/Contact/getall";
   private urlPersist = this.baseUrl + "/api/Contact";
 

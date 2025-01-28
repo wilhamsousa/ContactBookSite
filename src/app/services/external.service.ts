@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ViaCepResponse } from '../interfaces/viaCep';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExternalService {
 
-  private baseUrl = 'http://localhost:5114';
+  private baseUrl = environment.baseUrl;
   private urlViaCep = this.baseUrl + "/api/External/ViaCep";
 
   constructor(private http: HttpClient) { }
