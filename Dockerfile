@@ -10,7 +10,7 @@ RUN npm install
 COPY . .
 #RUN npm cache clean --force
 #RUN npm run build --prod
-RUN npm run build:docker
+RUN npm run build-docker
 
 FROM nginx:1.27-alpine AS DEPLOY
 COPY ./nginx.conf  /etc/nginx/conf.d/default.conf
